@@ -20,10 +20,10 @@ float sprintMultiplier = 1.0f;
 void Player::Update(sf::RenderWindow* window, InputManager inputManager, int timeElapsed) {
     float speed = this->speed * timeElapsed;
     // Sprint ability
-    // Original speed is multiplied with 3 while sprinting 
+    // Original speed is multiplied with a factor while sprinting 
     // Player loses 1 stamina per second while sprinting
     // Player regains 1 stamina per second while not sprinting
-    float deltaSeconds = timeElapsed / 1000.0f;
+    // When player depletes stamina, they must rest for 5 seconds
     float sprintMultiplier = 1.0f;
     
     if(isResting == true){
