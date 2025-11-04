@@ -38,6 +38,7 @@ void MainGame::Update(sf::RenderWindow* window) {
     this->camera->Update(window, this->map, sf::Vector2f(this->player->getPosition().x, this->player->getPosition().y));
 
     // Reloading of the map
+    // Press Ctrl + L to reload the map
     if(inputManager.IsPressed(InputManager::LoadMap)
     && inputManager.IsKeyBoardPressed(sf::Keyboard::LControl)) {
         std::cout << "Loading Map..." << std::endl;
