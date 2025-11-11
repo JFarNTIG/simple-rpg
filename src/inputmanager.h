@@ -18,6 +18,8 @@ public:
         Down,
         LoadMap,
         SprintAbility,
+        Capture,
+        spawnEntity,
 
         KeyCount      ///< Keep last -- the total number of inputs
     };

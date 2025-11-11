@@ -5,6 +5,7 @@ EntityManager::EntityManager() {
 
 void EntityManager::SetCollisionMethod(CollisionUpdateEvent collisionsEvent) {
     this->collisionsEvent = collisionsEvent;
+
 }
 
 void EntityManager::AddEntity(std::string name, Entity* entity) {
@@ -76,3 +77,9 @@ EntityManager::~EntityManager() {
 
     this->entities.clear();
 }
+//callar på UpdateTexture och kollar för Collision och kollar om de är mögjligt 
+void EntityManager::CaptureEntity(Entity &prisoner){
+    //call it when a collison happens between player and entity
+    prisoner.UpdateTexture("data/gfx/test1.png");
+}
+

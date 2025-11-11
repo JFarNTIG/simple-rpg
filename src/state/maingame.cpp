@@ -2,6 +2,10 @@
 
 void UpdateCollisions(Entity* entityA, Entity* entityB) {
     std::cout << "Collisions!" << std::endl;
+    if(inputManager.IsKeyBoardPressed(sf::Keyboard::N)){
+        entityB->velocity.x = 0;
+        entityB->setPosition(sf::Vector2f(entityA->getPosition()));
+    }
 }
 
 void MainGame::Initialize(sf::RenderWindow* window) {
@@ -10,10 +14,11 @@ void MainGame::Initialize(sf::RenderWindow* window) {
 
     // Add entities
     this->entityManager->AddEntity("test", new Entity("data/gfx/test.png"));
-    this->entityManager->AddEntity("test", new Entity("data/gfx/test.png"));
+    this->entityManager->AddEntity("test0", new Entity("data/gfx/test.png"));
     this->entityManager->Get("test0")->velocity.x = 0.5;
     this->entityManager->Get("test")->setPosition(sf::Vector2f(50, 50));
     this->entityManager->Get("test0")->setPosition(sf::Vector2f(50, 300));
+
 
     // Load Map
     this->map = new Map();
@@ -35,6 +40,7 @@ void MainGame::Update(sf::RenderWindow* window) {
     this->player->Update(window, inputManager, timeElapsed);
     this->entityManager->Update();
     this->map->CheckCollision(this->player);
+    
     this->camera->Update(window, this->map, sf::Vector2f(this->player->getPosition().x, this->player->getPosition().y));
 
     // Reloading of the map
@@ -47,6 +53,8 @@ void MainGame::Update(sf::RenderWindow* window) {
         std::cout << "Updating Map..." << std::endl;
         MapLoad(this->map, "data/map/level1.json", 1);
     }
+
+
 }
 
 void MainGame::Render(sf::RenderWindow* window) {

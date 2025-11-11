@@ -1,5 +1,5 @@
 #include "entity.h"
-
+#include <SFML/Graphics.hpp>
 Entity::Entity() {
     this->active = 1;
     this->texture = new sf::Texture();
@@ -51,6 +51,12 @@ int Entity::Group() {
 
 void Entity::Update() {
     this->move(this->velocity);
+}
+//för att allmänt ändra textur.//
+void Entity::UpdateTexture(std::string filePath){
+    this->active = 1;
+    this->texture = new sf::Texture();
+    this->Load(filePath);
 }
 
 Entity::~Entity() {
