@@ -4,6 +4,7 @@ Player::Player(EntityManager* entityManager, Map *map, Camera *camera, float x, 
     this->entityManager = entityManager;
     this->map = map;
     this->camera = camera;
+    this->isPlayer = true;
 
     this->Load("data/gfx/player.png");
     this->setPosition(x, y);

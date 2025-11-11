@@ -2,9 +2,16 @@
 
 void UpdateCollisions(Entity* entityA, Entity* entityB) {
     std::cout << "Collisions!" << std::endl;
-    if(inputManager.IsKeyBoardPressed(sf::Keyboard::N)){
-        entityB->velocity.x = 0;
-        entityB->setPosition(sf::Vector2f(entityA->getPosition()));
+    if(inputManager.IsKeyBoardPressed(sf::Keyboard::C)){
+        if(entityB->isPlayer != true ){
+            entityB->velocity.x = 0;
+            entityB->status= true;
+            entityB->UpdateTexture("data/gfx/test1.png");
+        }else if (entityA->isPlayer != true){
+            entityA->velocity.x = 0;
+            entityA->status= true;
+            entityA->UpdateTexture("data/gfx/test1.png");
+        }
     }
 }
 
@@ -14,7 +21,7 @@ void MainGame::Initialize(sf::RenderWindow* window) {
 
     // Add entities
     this->entityManager->AddEntity("test", new Entity("data/gfx/test.png"));
-    this->entityManager->AddEntity("test0", new Entity("data/gfx/test.png"));
+    this->entityManager->AddEntity("test", new Entity("data/gfx/test.png"));
     this->entityManager->Get("test0")->velocity.x = 0.5;
     this->entityManager->Get("test")->setPosition(sf::Vector2f(50, 50));
     this->entityManager->Get("test0")->setPosition(sf::Vector2f(50, 300));
@@ -53,7 +60,6 @@ void MainGame::Update(sf::RenderWindow* window) {
         std::cout << "Updating Map..." << std::endl;
         MapLoad(this->map, "data/map/level1.json", 1);
     }
-
 
 }
 

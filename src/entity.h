@@ -19,9 +19,10 @@ public:
     virtual void Update();
     void UpdateTexture(std::string filePath);
     ~Entity();
-
+    
     sf::Vector2f velocity;
-
+    bool status;
+    bool isPlayer;
 protected:
     int active, groupId;
 

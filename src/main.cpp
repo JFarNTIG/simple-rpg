@@ -9,7 +9,7 @@ int main()
 {
     std::cout << "Hello World!" << std::endl;
 
-    std::string gameName = "rpg";
+    std::string gameName = "Hamzeh's Game Not NTI";
     unsigned int windowStyle = sf::Style::Titlebar | sf::Style::Close;
     sf::ContextSettings settings;
     settings.antialiasingLevel = 16;
