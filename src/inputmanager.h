@@ -20,6 +20,7 @@ public:
         SprintAbility,
         Capture,
         spawnEntity,
+        FlightAbility,
 
         KeyCount      ///< Keep last -- the total number of inputs
     };
