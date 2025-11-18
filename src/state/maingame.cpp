@@ -2,12 +2,12 @@
 
 void UpdateCollisions(Entity* entityA, Entity* entityB) {
     std::cout << "Collisions!" << std::endl;
-    if(inputManager.IsKeyBoardPressed(sf::Keyboard::C)){
-        if(entityB->isPlayer != true ){
+    if(inputManager.IsKeyBoardPressed(sf::Keyboard::C)) {
+        if(entityB->isPlayer != true ) {
             entityB->velocity.x = 0;
             entityB->status= true;
-            entityB->UpdateTexture("data/gfx/test1.png");
-        }else if (entityA->isPlayer != true){
+            entityB->UpdateTexture("data/gfx/test1.png");            
+        }else if(entityA->isPlayer != true) {
             entityA->velocity.x = 0;
             entityA->status= true;
             entityA->UpdateTexture("data/gfx/test1.png");
