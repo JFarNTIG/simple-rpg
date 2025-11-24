@@ -1,16 +1,19 @@
 {
     "files.associations": {
-        "charconv": "cpp",
-        "optional": "cpp",
-        "format": "cpp",
-        "ranges": "cpp",
-        "system_error": "cpp",
+        "iostream": "cpp",
         "array": "cpp",
+        "memory": "cpp",
         "functional": "cpp",
+        "istream": "cpp",
         "tuple": "cpp",
-        "type_traits": "cpp",
         "utility": "cpp",
-        "ostream": "cpp",
-        "iostream": "cpp"
+        "format": "cpp",
+        "type_traits": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xutility": "cpp",
+        "sstream": "cpp"
     }
 }

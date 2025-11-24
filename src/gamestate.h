@@ -59,6 +59,8 @@ public:
         }
     }
 
+    GameState* GetState() const { return state; }
+
 private:
     sf::RenderWindow* window;
     GameState* state;

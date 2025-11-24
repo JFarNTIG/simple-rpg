@@ -1,4 +1,5 @@
 #include "entitymanager.h"
+#include "map.h"
 
 EntityManager::EntityManager() {
 }
@@ -6,6 +7,10 @@ EntityManager::EntityManager() {
 void EntityManager::SetCollisionMethod(CollisionUpdateEvent collisionsEvent) {
     this->collisionsEvent = collisionsEvent;
 
+}
+
+void EntityManager::SetMap(Map* map) {
+    this->map = map; // Set the Map instance
 }
 
 void EntityManager::AddEntity(std::string name, Entity* entity) {
@@ -31,6 +36,7 @@ void EntityManager::Update() {
     std::vector<std::string> toRemove;
 
     for (auto& iterator : this->entities) {
+        this->map->CheckCollision(iterator.second);
         if (iterator.second != NULL) {
             if (this->collisionsEvent != NULL) {
                 for (auto& iterator2 : this->entities) {

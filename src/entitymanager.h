@@ -18,12 +18,14 @@ public:
     Entity* Get(std::string name);
     void Update();
     void Render(sf::RenderWindow *window, Camera *camera);
+    void SetMap(Map* map);
     ~EntityManager();
     void CaptureEntity(Entity &prisoner);
 
 private:
     std::unordered_map<std::string, Entity*> entities;
     CollisionUpdateEvent* collisionsEvent;
+    Map* map;
 };
 
 #endif // ENTITYMANAGER
