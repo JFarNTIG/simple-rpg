@@ -1,6 +1,7 @@
 #include "entity.h"
 #include <random>
 #include <vector>
+#include <cmath>
 
 Entity::Entity() {
     this->active = 1;
@@ -45,6 +46,11 @@ void Entity::SetActive(int active) {
 
 void Entity::setDialogue(std::vector<std::wstring> dialogue_options) {
     this->dialogue_options = dialogue_options;
+}
+
+float Entity::calculateLength(Entity* entity) {
+    float length = sqrt(pow(this->getPosition().x  - entity->getPosition().x,2) + pow(this->getPosition().y - entity->getPosition().y, 2));
+    return length;
 }
 
 int Entity::Active() {

@@ -17,6 +17,7 @@ public:
     void SetActive(int active);
     std::wstring Dialogue();
     void setDialogue(std::vector<std::wstring> dialogue_options);
+    float calculateLength(Entity* entity);
     int Active();
     int Group();
     virtual void Update();

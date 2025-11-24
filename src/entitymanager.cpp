@@ -1,5 +1,4 @@
 #include "entitymanager.h"
-#include <cmath>
 #include <vector>
 #include "entity.h"
 #include <SFML/Graphics/Text.hpp>
@@ -72,7 +71,8 @@ void EntityManager::Render(sf::RenderWindow* window, Camera *camera) {
         && camera->IsOnScreen(window, iterator.second)) {
             window->draw(*iterator.second);
         }
-        if (sqrt(pow(iterator.second->getPosition().x - Get("Player")->getPosition().x, 2) + pow(iterator.second->getPosition().y - Get("Player")->getPosition().y, 2)) <= 100 && iterator.first != "Player") {
+        // Check length to player
+        if (iterator.second->calculateLength(Get("Player")) <= 100 && iterator.first != "Player") {
             // Will output a text bubble with the random dialogue option
             sf::Font font;
             if (!font.loadFromFile("data/ARIAL.TTF")) {
