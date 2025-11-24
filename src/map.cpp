@@ -77,6 +77,7 @@ void Map::CheckCollision(Entity *entity) {
                 tile.setPosition(sf::Vector2f(x * this->tileSet->tileWidth, y * this->tileSet->tileHeight));
                 if (tile.getGlobalBounds().intersects(entity->getGlobalBounds())) {
                     collided = true;
+                    
                     collidedTile.x = x;
                     collidedTile.y = y;
                     break;
@@ -132,7 +133,7 @@ void Map::CheckCollision(Entity *entity) {
         && collidedTile.y < entityCenter.y) {
             entity->velocity.y -= entity->velocity.y * 2;
         }
-
+        //fixade coliition med trä men inte med (om du vill fixa de med en faktor gör så de inte börjar tills map har loadat)
         entity->move(entity->velocity.x, entity->velocity.y);
     }
 }

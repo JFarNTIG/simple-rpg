@@ -3,6 +3,19 @@
 #include <SFML/Graphics.hpp>
 
 void UpdateCollisions(Entity* entityA, Entity* entityB) {
+    std::cout << "Collisions!" << std::endl;
+    if(inputManager.IsKeyBoardPressed(sf::Keyboard::C)) {
+        if(entityB->isPlayer != true ) {
+            entityB->velocity.x = 0;
+            entityB->status= true;
+            entityB->UpdateTexture("data/gfx/test1.png");            
+        }else if(entityA->isPlayer != true) {
+            entityA->velocity.x = 0;
+            entityA->status= true;
+            entityA->UpdateTexture("data/gfx/test1.png");
+        }
+    }
+  
     Player* player = dynamic_cast<Player*>(entityA);
     Coin* coin = dynamic_cast<Coin*>(entityB);
 
@@ -31,6 +44,8 @@ void MainGame::Initialize(sf::RenderWindow* window) {
         return;
     }
 
+
+    // Load Map
     this->map = new Map();
     MapLoad(this->map, "data/map/level1.json");
     this->entityManager->SetMap(this->map);

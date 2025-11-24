@@ -50,7 +50,13 @@ void Camera::Update(sf::RenderWindow *window, Map *map, sf::Vector2f position) {
     else if (position.x > windowCenterEnd.x && position.y > windowCenterEnd.y) {
         this->SetCenter(window, sf::Vector2f(windowCenterEnd.x, windowCenterEnd.y));
     }
+    // If map is smaller than window
+    else if(map->width * map->tileWidth < window->getSize().x
+         && map->height * map->tileHeight < window->getSize().y) {
+        this->SetCenter(window, sf::Vector2f(map->width * map->tileWidth / 2, map->height * map->tileHeight / 2));
+    }
 }
+
 
 bool Camera::IsOnScreen(sf::RenderWindow *window, Entity *entity) {
     if (entity->getPosition().x + entity->getGlobalBounds().width / 2 > this->view.getCenter().x - window->getSize().x / 2 &&
