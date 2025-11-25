@@ -25,10 +25,12 @@ void MainGame::Initialize(sf::RenderWindow* window) {
     // Load Camera
     this->camera = new Camera(window);
 
+
     // Load Player
     this->player = new Player(this->entityManager, this->map, this->camera, 100, 100);
     this->entityManager->AddEntity("Player", this->player);
 
+    
     // Load Weapon
     this->weapon = new Weapon(this->map, 120, 90);
     this->entityManager->AddEntity("Weapon", this->weapon);
