@@ -9,12 +9,12 @@ int main()
 {
     std::cout << "Hello World!" << std::endl;
 
-    std::string gameName = "rpg";
+    std::string gameName = "Simple RPG";
     unsigned int windowStyle = sf::Style::Titlebar | sf::Style::Close;
     sf::ContextSettings settings;
     settings.antialiasingLevel = 16;
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), gameName, windowStyle, settings);
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), gameName, windowStyle, settings);
     window.clear(sf::Color(0, 0, 0));
     window.display();
     //window.setVerticalSyncEnabled(true);
@@ -58,9 +58,14 @@ int main()
                         }
                         else {
                             windowStyle = sf::Style::Fullscreen;
+                            
+                            
+                            
                         }
 
-                        window.create(sf::VideoMode(1280, 720), gameName, windowStyle, settings);
+                        
+
+                        window.create(sf::VideoMode::getDesktopMode(), gameName, windowStyle, settings);
                         window.setVerticalSyncEnabled(true);
                     }
                 }

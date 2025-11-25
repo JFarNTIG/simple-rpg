@@ -40,26 +40,44 @@ void Map::CheckCollision(Entity *entity) {
     sf::Vector2i collidedTile;
     for (int y = checkHeight.x; y < checkHeight.y; y++) {
         for (int x = checkWidth.x; x < checkWidth.y; x++) {
+
+            // Osynliga kanter
+            if (y < 0 || y >= this->collision->data.size() ||
+                x < 0 || x >= this->collision->data[y].size()) {
+
+                // Stop entity at edges (don’t bounce)
+                entity->velocity.x = 0;
+                entity->velocity.y = 0;
+
+                // Clamp entity position inside map
+                sf::Vector2f pos = entity->getPosition();
+                if (pos.x < 0) pos.x = 0;
+                if (pos.y < 0) pos.y = 0;
+                if (this->collision->data.empty() == false)
+                {
+                    if (pos.x + entity->getGlobalBounds().width >
+                        this->tileSet->tileWidth * this->collision->data[0].size())
+                        pos.x = this->tileSet->tileWidth * this->collision->data[0].size() - entity->getGlobalBounds().width;
+                    if (pos.y + entity->getGlobalBounds().height >
+                        this->tileSet->tileHeight * this->collision->data.size())
+                        pos.y = this->tileSet->tileHeight * this->collision->data.size() - entity->getGlobalBounds().height;
+                }
+                else
+                {
+                    std::cout << "Collision data is empty!" << std::endl;
+                }
+                entity->setPosition(pos);
+                return; // Stop checking, outer wall hit
+            }
+
             index = this->collision->data[y][x];
             // If collision tile
             if(index >= 0 && index < tileSet->tile.size()) {
                 tile.setTexture(*this->tileSet->tile[index]);
                 tile.setPosition(sf::Vector2f(x * this->tileSet->tileWidth, y * this->tileSet->tileHeight));
-                // Rotate oblique collisions
-//                if(i == 1) {
-//                    switch(x) {
-//                        case 3:
-//                            break;
-
-//                        case 4:
-//                            break;
-
-//                        case 5:
-//                            break;
-//                    }
-//                }
                 if (tile.getGlobalBounds().intersects(entity->getGlobalBounds())) {
                     collided = true;
+                    
                     collidedTile.x = x;
                     collidedTile.y = y;
                     break;
@@ -68,32 +86,39 @@ void Map::CheckCollision(Entity *entity) {
         }
     }
 
-    // Move back if entity collided
+    // Move back if entity collided (tree or solid tile)
     if(collided) {
         // Get Entities center x, y position;
-        sf::Vector2f entityCenter = sf::Vector2f(
+        sf::Vector2i entityCenter = sf::Vector2i(
             (int)((entity->getPosition().x + entity->getGlobalBounds().width / 2) / this->tileSet->tileWidth),
             (int)((entity->getPosition().y + entity->getGlobalBounds().height / 2) / this->tileSet->tileHeight)
         );
 
+        /*
+
         // DOWN_RIGHT
         if(collidedTile.x > entityCenter.x + 1
         && collidedTile.y > entityCenter.y + 1) {
-
+            entity->velocity.x -= entity->velocity.x * 2;
+            entity->velocity.y += entity->velocity.y * 2;
         }
         // UP_RIGHT
         else if(collidedTile.x > entityCenter.x + 1
         && collidedTile.y < entityCenter.y - 1) {
-
+            entity->velocity.x -= entity->velocity.x * 2;
+            entity->velocity.y -= entity->velocity.y * 2;
         }
         // UP_LEFT
         else if(collidedTile.x < entityCenter.x - 1
         && collidedTile.y < entityCenter.y - 1) {
-
+            entity->velocity.x += entity->velocity.x * 2;
+            entity->velocity.y -= entity->velocity.y * 2;
         }
         // DOWN_LEFT
         else if(collidedTile.x < entityCenter.x - 1
         && collidedTile.y > entityCenter.y + 1) {
+            entity->velocity.x += entity->velocity.x * 2;
+            entity->velocity.y += entity->velocity.y * 2;
         }
 
         // RIGHT
@@ -104,18 +129,47 @@ void Map::CheckCollision(Entity *entity) {
         // LEFT
         if(collidedTile.x < entityCenter.x
         && collidedTile.y == entityCenter.y) {
-
+            entity->velocity.x += entity->velocity.x * 2;
         }
         // DOWN
         if(collidedTile.x == entityCenter.x
         && collidedTile.y > entityCenter.y) {
-
+            entity->velocity.y += entity->velocity.y * 2;
         }
         // UP
         if(collidedTile.x == entityCenter.x
         && collidedTile.y < entityCenter.y) {
             entity->velocity.y -= entity->velocity.y * 2;
         }
+        */
+
+        // TODO: make sure collision really works, like print something when you collide
+        // UP
+        if (collidedTile.y + 1 == entityCenter.y) {
+            entity->velocity.y -= entity->velocity.y * 2;
+            std::cout << "UP!!" << std::endl;
+        }
+        
+        if (collidedTile.y - 1 ==  entityCenter.y) {
+            entity->velocity.y -= entity->velocity.y * 2;
+            std::cout << "DOWN!!" << std::endl;
+        }
+        
+        if (collidedTile.x + 1 == entityCenter.x) {
+            entity->velocity.x -= entity->velocity.x * 2;
+            std::cout << "RIGHT!!" << std::endl;
+        }
+        
+        if (collidedTile.x - 1 == entityCenter.x) {
+            entity->velocity.x -= entity->velocity.x * 2;
+            std::cout << "LEFT!!" << std::endl;
+        }
+
+        std::cout << "Tile X: " << collidedTile.x << " : Player X: " << entityCenter.x << std::endl;
+        std::cout << "Tile Y: " << collidedTile.y << " : Player Y: " << entityCenter.y << std::endl;
+        std::cout << "----------------------------------" << std::endl;
+
+
 
         entity->move(entity->velocity.x, entity->velocity.y);
     }
@@ -141,9 +195,6 @@ void Map::RenderAbove(sf::RenderWindow *window) {
 
     layer = this->above3;
     this->Render(window, layer);
-
-//    layer = this->collision;
-//    this->Render(window, layer);
 }
 
 void Map::Render(sf::RenderWindow *window, Layer *layer) {
@@ -162,12 +213,20 @@ void Map::Render(sf::RenderWindow *window, Layer *layer) {
     sf::Sprite tile;
     for (int y = renderHeight.x; y < renderHeight.y; y++) {
         for (int x = renderWidth.x; x < renderWidth.y; x++) {
+
+            if(y > -1 &&  y < layer->data.size()) {
+                if(x > -1 &&  x < layer->data.size()){
             index = layer->data[y][x];
-            if(index != 0) {
+            
+            if(index != 0 && index <= this->tileSet->tile.size() ) {
                 tile.setTexture(*this->tileSet->tile[index]);
                 tile.setPosition(sf::Vector2f(x * this->tileSet->tileWidth, y * this->tileSet->tileHeight));
-                window->draw(tile);
+            
+                    window->draw(tile);
+                }
             }
+            }
+            
         }
     }
 }
