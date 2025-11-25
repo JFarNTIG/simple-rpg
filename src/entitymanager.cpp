@@ -4,12 +4,18 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include "map.h"
 
 EntityManager::EntityManager() {
 }
 
 void EntityManager::SetCollisionMethod(CollisionUpdateEvent collisionsEvent) {
     this->collisionsEvent = collisionsEvent;
+
+}
+
+void EntityManager::SetMap(Map* map) {
+    this->map = map; // Set the Map instance
 }
 
 void EntityManager::AddEntity(std::string name, Entity* entity) {
@@ -35,6 +41,7 @@ void EntityManager::Update() {
     std::vector<std::string> toRemove;
 
     for (auto& iterator : this->entities) {
+        this->map->CheckCollision(iterator.second);
         if (iterator.second != NULL) {
             if (this->collisionsEvent != NULL) {
                 for (auto& iterator2 : this->entities) {
@@ -128,3 +135,9 @@ EntityManager::~EntityManager() {
 
     this->entities.clear();
 }
+//callar på UpdateTexture och kollar för Collision och kollar om de är mögjligt 
+void EntityManager::CaptureEntity(Entity &prisoner) {
+    //call it when a collison happens between player and entity
+    prisoner.UpdateTexture("data/gfx/test1.png");
+}
+

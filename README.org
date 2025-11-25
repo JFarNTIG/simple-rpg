@@ -10,13 +10,13 @@ Simple 2D RPG made in C++ and SFML.
 ** Clone
 
 #+BEGIN_SRC sh
-  $ git clone --recursive https://github.com/JFarNTIG/simple-rpg
+  $ git clone --recursive https://github.com/LaxenSnaxen/simple-rpg
 #+END_SRC
 
 Or
 
 #+BEGIN_SRC sh
-  $ git clone https://github.com/JFarNTIG/simple-rpg
+  $ git clone https://github.com/LaxenSnaxen/simple-rpg
   $ cd simple-rpg
   $ git submodule init
   $ git submodule update

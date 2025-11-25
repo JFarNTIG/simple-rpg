@@ -2,21 +2,30 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include <SFML/Graphics.hpp>
+#include <iostream>
 
 Entity::Entity() {
     this->active = 1;
     this->texture = new sf::Texture();
+    this->isPlayer = false;
+    this->status = false;
 }
 
-Entity::Entity(std::string fileName) {
+Entity::Entity(std::string fileName, int movementState) {
+    this->isPlayer = false;
+    this->status = false;
     this->active = 1;
     this->texture = new sf::Texture;
     this->Load(fileName);
     this->setOrigin((this->texture->getSize().x / 2), (this->texture->getSize().y / 2));
+    this->movementState = movementState;
 }
 
 Entity::Entity(std::string fileName, sf::IntRect rect) {
     this->active = 1;
+    this->isPlayer = false;
+    this->status = false;
     this->texture = new sf::Texture();
     this->Load(fileName, rect);
     this->setOrigin((this->texture->getSize().x / 2), (this->texture->getSize().y / 2));
@@ -62,7 +71,21 @@ int Entity::Group() {
 }
 
 void Entity::Update() {
-    this->move(this->velocity);
+    if (this->movementState == 1) {
+        // Roaming beahviour, randomised movement.
+        this->velocity.x += (rand() % 3 - 1) * 0.1;
+        this->velocity.y += (rand() % 3 - 1) * 0.1;
+        //std::cout << "Velocity: " << this->velocity.x << ", " << this->velocity.y << std::endl;
+        this->move(this->velocity);
+    }
+    else{
+        this->move(this->velocity);
+    }
+}
+//för att allmänt ändra textur.//
+void Entity::UpdateTexture(std::string filePath){
+    this->texture = new sf::Texture();
+    this->Load(filePath);
 }
 
 Entity::~Entity() {

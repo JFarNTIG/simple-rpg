@@ -40,26 +40,44 @@ void Map::CheckCollision(Entity *entity) {
     sf::Vector2i collidedTile;
     for (int y = checkHeight.x; y < checkHeight.y; y++) {
         for (int x = checkWidth.x; x < checkWidth.y; x++) {
+
+            // Osynliga kanter
+            if (y < 0 || y >= this->collision->data.size() ||
+                x < 0 || x >= this->collision->data[y].size()) {
+
+                // Stop entity at edges (don’t bounce)
+                entity->velocity.x = 0;
+                entity->velocity.y = 0;
+
+                // Clamp entity position inside map
+                sf::Vector2f pos = entity->getPosition();
+                if (pos.x < 0) pos.x = 0;
+                if (pos.y < 0) pos.y = 0;
+                if (this->collision->data.empty() == false)
+                {
+                    if (pos.x + entity->getGlobalBounds().width >
+                        this->tileSet->tileWidth * this->collision->data[0].size())
+                        pos.x = this->tileSet->tileWidth * this->collision->data[0].size() - entity->getGlobalBounds().width;
+                    if (pos.y + entity->getGlobalBounds().height >
+                        this->tileSet->tileHeight * this->collision->data.size())
+                        pos.y = this->tileSet->tileHeight * this->collision->data.size() - entity->getGlobalBounds().height;
+                }
+                else
+                {
+                    std::cout << "Collision data is empty!" << std::endl;
+                }
+                entity->setPosition(pos);
+                return; // Stop checking, outer wall hit
+            }
+
             index = this->collision->data[y][x];
-            // If collision tile
+            // If collision tile (e.g., trees, rocks, etc.)
             if(index != 0) {
                 tile.setTexture(*this->tileSet->tile[index]);
                 tile.setPosition(sf::Vector2f(x * this->tileSet->tileWidth, y * this->tileSet->tileHeight));
-                // Rotate oblique collisions
-//                if(i == 1) {
-//                    switch(x) {
-//                        case 3:
-//                            break;
-
-//                        case 4:
-//                            break;
-
-//                        case 5:
-//                            break;
-//                    }
-//                }
                 if (tile.getGlobalBounds().intersects(entity->getGlobalBounds())) {
                     collided = true;
+                    
                     collidedTile.x = x;
                     collidedTile.y = y;
                     break;
@@ -68,7 +86,7 @@ void Map::CheckCollision(Entity *entity) {
         }
     }
 
-    // Move back if entity collided
+    // Move back if entity collided (tree or solid tile)
     if(collided) {
         // Get Entities center x, y position;
         sf::Vector2i entityCenter = sf::Vector2i(
@@ -177,9 +195,6 @@ void Map::RenderAbove(sf::RenderWindow *window) {
 
     layer = this->above3;
     this->Render(window, layer);
-
-//    layer = this->collision;
-//    this->Render(window, layer);
 }
 
 void Map::Render(sf::RenderWindow *window, Layer *layer) {
