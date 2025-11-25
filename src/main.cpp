@@ -36,7 +36,19 @@ int main()
             if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
             }
-
+            /*
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::P) {
+                    for (int i = 0; i < 100; i++) {
+                        for (int j = 0; j < 100; j++) {
+                            std::cout << map->collision->data[i][j] << std::endl;
+                        }
+                    }
+                }
+                }
+            }
+            */
+            // Fullscreen crashes the game
             // Enter fullscreen mode : key combination : Alt+Enter
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Return) {

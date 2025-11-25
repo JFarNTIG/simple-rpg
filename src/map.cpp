@@ -71,8 +71,8 @@ void Map::CheckCollision(Entity *entity) {
             }
 
             index = this->collision->data[y][x];
-            // If collision tile (e.g., trees, rocks, etc.)
-            if(index != 0) {
+            // If collision tile
+            if(index >= 0 && index < tileSet->tile.size()) {
                 tile.setTexture(*this->tileSet->tile[index]);
                 tile.setPosition(sf::Vector2f(x * this->tileSet->tileWidth, y * this->tileSet->tileHeight));
                 if (tile.getGlobalBounds().intersects(entity->getGlobalBounds())) {

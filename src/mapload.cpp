@@ -11,12 +11,13 @@ MapLoad::MapLoad(Map *map, std::string mapName, int update) {
         this->LoadTileSet(document, map);
     }
     this->LoadMap(document, map);
-
-//    for (int i = 0; i < 100; i++) {
-//        for (int j = 0; j < 100; j++) {
-//            std::cout << map->collision->data[i][j] << std::endl;
-//        }
-//    }
+/*
+   for (int i = 0; i < 100; i++) {
+       for (int j = 0; j < 100; j++) {
+           std::cout << map->collision->data[i][j] << std::endl;
+      }
+  }
+*/
 }
 
 void MapLoad::GetFile(std::string *content, std::string mapName) {
@@ -49,25 +50,25 @@ void MapLoad::LoadLayer(const rapidjson::Document& document, Map *map) {
     Layer* current;
     for(int i = 0; i < loopCount; i++) {
         current = NULL;
-        if(document["layers"][i]["properties"]["name"] == "Ground1") {
+        if(document["layers"][i]["name"] == "Ground1") {
             current = map->ground1;
         }
-        else if(document["layers"][i]["properties"]["name"] == "Ground2") {
+        else if(document["layers"][i]["name"] == "Ground2") {
             current = map->ground2;
         }
-        else if(document["layers"][i]["properties"]["name"] == "Ground3") {
+        else if(document["layers"][i]["name"] == "Ground3") {
             current = map->ground3;
         }
-        else if(document["layers"][i]["properties"]["name"] == "Above1") {
+        else if(document["layers"][i]["name"] == "Above1") {
             current = map->above1;
         }
-        else if(document["layers"][i]["properties"]["name"] == "Above2") {
+        else if(document["layers"][i]["name"] == "Above2") {
             current = map->above2;
         }
-        else if(document["layers"][i]["properties"]["name"] == "Above3") {
+        else if(document["layers"][i]["name"] == "Above3") {
             current = map->above3;
         }
-        if(document["layers"][i]["properties"]["name"] == "Collision") {
+        if(document["layers"][i]["name"] == "Collision") {
             current = map->collision;
         }
 
