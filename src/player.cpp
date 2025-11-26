@@ -36,9 +36,9 @@ void Player::Update(sf::RenderWindow* window, InputManager inputManager, int tim
     float sprintMultiplier = 1.0f;
     // Reset to normal player sprite
     // Viktor får ändra det till sin råtta om han vill
-    this->Load("data/gfx/player.png");
+    // this->Load("data/gfx/player.png");
     // Reset scale
-    this->setScale(1.0f, 1.0f);
+    // this->setScale(1.0f, 1.0f);
 
     if(isResting == true){
         // Decrease rest timer in seconds
@@ -54,7 +54,7 @@ void Player::Update(sf::RenderWindow* window, InputManager inputManager, int tim
         // Drain stamina per second using actual frame time
         stamina -= 1.0f/60.0f;
         // You become the fast yellow player while sprinting
-        this->Load("data/gfx/fastPlayer.png");
+        // this->Load("data/gfx/fastPlayer.png");
         
         if(stamina <= 0.0f){
             // Start forced rest when stamina depletes
@@ -68,7 +68,7 @@ void Player::Update(sf::RenderWindow* window, InputManager inputManager, int tim
 
         stamina -= 1.0f/60.0f;
         // You become the supermen(logo) while flying
-        this->Load("data/gfx/superman2.png");
+        // this->Load("data/gfx/superman2.png");
         // Scale up the sprite while flying
         this->setScale(2.0f, 2.0f);
         
