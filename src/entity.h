@@ -12,7 +12,6 @@ public:
     Entity(std::string fileName, int movementState = 0);
     Entity(std::string fileName, sf::IntRect rect);
     void Load(std::string fileName);
-    void Load(std::string fileName, sf::IntRect rect);
     bool Collision(Entity *entity);
     void SetActive(int active);
     std::wstring Dialogue();

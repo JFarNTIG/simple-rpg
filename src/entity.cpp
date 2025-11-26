@@ -1,4 +1,5 @@
 #include "entity.h"
+#include "graphicsmanager.h"
 #include <random>
 #include <vector>
 #include <cmath>
@@ -7,7 +8,7 @@
 
 Entity::Entity() {
     this->active = 1;
-    this->texture = new sf::Texture();
+    this->texture = GraphicsManager::get_instance()->get_empty_texture();
     this->isPlayer = false;
     this->status = false;
 }
@@ -16,29 +17,15 @@ Entity::Entity(std::string fileName, int movementState) {
     this->isPlayer = false;
     this->status = false;
     this->active = 1;
-    this->texture = new sf::Texture;
+    this->texture = GraphicsManager::get_instance()->get_empty_texture();
     this->Load(fileName);
     this->setOrigin((this->texture->getSize().x / 2), (this->texture->getSize().y / 2));
     this->movementState = movementState;
 }
 
-Entity::Entity(std::string fileName, sf::IntRect rect) {
-    this->active = 1;
-    this->isPlayer = false;
-    this->status = false;
-    this->texture = new sf::Texture();
-    this->Load(fileName, rect);
-    this->setOrigin((this->texture->getSize().x / 2), (this->texture->getSize().y / 2));
-}
-
 void Entity::Load(std::string fileName) {
-    this->texture->loadFromFile(fileName, sf::IntRect());
-    this->setTexture(*this->texture);
-}
-
-void Entity::Load(std::string fileName, sf::IntRect rect) {
-    this->texture->loadFromFile(fileName, rect);
-    this->setTexture(*this->texture);
+    sf::Texture *texture = GraphicsManager::get_instance()->get_texture(fileName);
+    this->setTexture(*texture);
 }
 
 bool Entity::Collision(Entity *entity) {
@@ -84,12 +71,13 @@ void Entity::Update() {
 }
 //för att allmänt ändra textur.//
 void Entity::UpdateTexture(std::string filePath){
-    this->texture = new sf::Texture();
     this->Load(filePath);
 }
 
 Entity::~Entity() {
-    delete this->texture;
+    if(this->texture) {
+        delete this->texture;
+    }
 }
 
 // Will output a random dialogue from the dialogue_options vector
