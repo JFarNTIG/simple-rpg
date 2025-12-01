@@ -121,11 +121,18 @@ void MainGame::Update(sf::RenderWindow* window) {
 
     this->weapon->setPosition(this->player->getPosition().x + 20, this->player->getPosition().y - 10);
 
-
+    std::string currentMap = "data/map/level1.json";
     if(this->player->getPosition().x > 1510.0f) {
-        std::cout << "You Win!" << std::endl;
         // next map code here
-        MapLoad(this->map, "data/map/level2.json");
+        
+        if (currentMap != "data/map/level2.json"){
+            MapLoad(this->map, "data/map/level2.json");
+            currentMap = "data/map/level2.json";
+        }
+        else {
+            MapLoad(this->map, "data/map/level1.json");
+            currentMap = "data/map/level1.json";
+        }
         this->player->setPosition(sf::Vector2f(100, 100));
         this->weapon->setPosition(sf::Vector2f(120, 90));
     }
