@@ -88,7 +88,7 @@ void Player::Update(sf::RenderWindow* window, InputManager inputManager, int tim
     }
 
     if(isResting){
-        this->Load("data/gfx/cheese.png");
+        this->Load("data/gfx/rat.png");
     }
     speed = speed * sprintMultiplier;
     // Update player velocity
