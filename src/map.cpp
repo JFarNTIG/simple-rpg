@@ -1,4 +1,5 @@
 #include "map.h"
+#include "defs.h"
 
 void TileSet::Clear() {
     while (this->textures.size() > 0) {
@@ -149,28 +150,37 @@ void Map::CheckCollision(Entity *entity) {
         // UP
         if (collidedTile.y + 1 == entityCenter.y) {
             entity->velocity.y -= entity->velocity.y * 2;
-            std::cout << "UP!!" << std::endl;
+            if(DEBUG_MODE) {
+                std::cout << "UP!!" << std::endl;
+            }
         }
         
         if (collidedTile.y - 1 ==  entityCenter.y) {
             entity->velocity.y -= entity->velocity.y * 2;
-            std::cout << "DOWN!!" << std::endl;
+            if(DEBUG_MODE) {
+                std::cout << "DOWN!!" << std::endl;
+            }
         }
         
         if (collidedTile.x + 1 == entityCenter.x) {
             entity->velocity.x -= entity->velocity.x * 2;
-            std::cout << "RIGHT!!" << std::endl;
+            if(DEBUG_MODE) {
+                std::cout << "RIGHT!!" << std::endl;
+            }
         }
         
         if (collidedTile.x - 1 == entityCenter.x) {
             entity->velocity.x -= entity->velocity.x * 2;
-            std::cout << "LEFT!!" << std::endl;
+            if(DEBUG_MODE) {
+                std::cout << "LEFT!!" << std::endl;
+            }
         }
 
-        std::cout << "Tile X: " << collidedTile.x << " : Player X: " << entityCenter.x << std::endl;
-        std::cout << "Tile Y: " << collidedTile.y << " : Player Y: " << entityCenter.y << std::endl;
-        std::cout << "----------------------------------" << std::endl;
-
+        if(DEBUG_MODE) {
+            std::cout << "Tile X: " << collidedTile.x << " : Player X: " << entityCenter.x << std::endl;
+            std::cout << "Tile Y: " << collidedTile.y << " : Player Y: " << entityCenter.y << std::endl;
+            std::cout << "----------------------------------" << std::endl;
+        }
 
 
         entity->move(entity->velocity.x, entity->velocity.y);

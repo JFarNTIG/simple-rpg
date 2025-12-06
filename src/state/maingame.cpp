@@ -1,10 +1,12 @@
 #include "maingame.h"
 #include "entity.h"
-
+#include "defs.h"
 #include <SFML/Graphics.hpp>
 
 void UpdateCollisions(Entity* entityA, Entity* entityB) {
-    std::cout << "Collisions!" << std::endl;
+    if(DEBUG_MODE) {
+        std::cout << "Collisions!" << std::endl;
+    }
     if(inputManager.IsKeyBoardPressed(sf::Keyboard::C)) {
         if(entityB->isPlayer != true ) {
             entityB->velocity.x = 0;
