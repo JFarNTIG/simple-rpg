@@ -155,8 +155,8 @@ void MainGame::Update(sf::RenderWindow* window) {
 
 void MainGame::Render(sf::RenderWindow* window) {
     this->map->RenderGround(window);
-    this->entityManager->Render(window, this->camera);
     this->map->RenderAbove(window);
+    this->entityManager->Render(window, this->camera);
 
     sf::Vector2f viewCenter = this->camera->GetView().getCenter();
     sf::Vector2f viewSize = this->camera->GetView().getSize();
