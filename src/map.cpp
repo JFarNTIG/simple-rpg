@@ -182,6 +182,10 @@ void Map::CheckCollision(Entity *entity) {
             std::cout << "----------------------------------" << std::endl;
         }
 
+        // having all these prints run each frame when colliding (for player and npc)
+        // caused fps to be at around 25 - 26fps
+        // removing them made game run at 60fps
+        // lmao
 
         entity->move(entity->velocity.x, entity->velocity.y);
     }
