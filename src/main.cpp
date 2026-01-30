@@ -10,7 +10,7 @@ int main()
     std::cout << "Hello World!" << std::endl;
 
     std::string gameName = "Hamzes Cheesy ÄventyrsQuest 2: Johan Ostman Deluxe Edition";
-    unsigned int windowStyle = sf::Style::Titlebar | sf::Style::Close;
+    unsigned int windowStyle = sf::Style::Fullscreen;
     sf::ContextSettings settings;
     settings.antialiasingLevel = 16;
 
