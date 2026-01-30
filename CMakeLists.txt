@@ -51,7 +51,7 @@ add_subdirectory(deps/SFML)
 # Game sources
 file(GLOB_RECURSE GAME_SOURCES "src/*.cpp")
 
-add_executable(${GAME} ${GAME_SOURCES})
+add_executable(${GAME} WIN32 ${GAME_SOURCES})
 
 # Link libraries
 target_link_libraries(${GAME}
