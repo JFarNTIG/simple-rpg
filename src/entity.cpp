@@ -85,7 +85,7 @@ std::wstring Entity::Dialogue() {
     
     if (!hasSpoken) {
         std::mt19937 eng(time(0));
-        std::uniform_int_distribution<int> number(0, this->dialogue_options.size());
+        std::uniform_int_distribution<int> number(0, this->dialogue_options.size() - 1);
         int random_number = number(eng);
         dialogue_option = dialogue_options[random_number];
 
