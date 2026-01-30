@@ -5,7 +5,10 @@ GraphicsManager::GraphicsManager() {
 }
 
 GraphicsManager::~GraphicsManager() {
-
+    for(auto p : this->textures) {
+        // free textures
+        delete p.second;
+    }
 }
 
 GraphicsManager *GraphicsManager::get_instance() {
